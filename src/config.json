@@ -1,0 +1,10 @@
+{
+	"max-rows": {
+		"type": "number",
+		"title": "Max rows",
+		"description": "Max number of rows",
+		"minimum": 0,
+		"maximum": 20,
+		"default": 10
+	}
+}
