@@ -1,0 +1,36 @@
+/*#vB_Editor_QR_textarea, #vB_Editor_001_textarea {
+	background-color: transparent;
+}*/
+.tm_backdrop {
+	position: absolute;
+	background-color: white;
+	margin: 0px;
+	box-sizing: border-box;
+	border: 1px solid gray;
+	border-radius: 3px;
+	text-align: left;
+}
+.tm_backdrop > span.row:first {
+	padding-top: 2px;
+}
+.tm_backdrop > span.row {
+	width: 100%;
+	display: inline-block;
+	padding: 3px 5px;
+	box-sizing: border-box;
+}
+.tm_backdrop > span.row:hover {
+	color: red;
+	background-color: rgba(0, 0, 0, 0.05);
+	text-decoration: underline;
+	cursor: pointer;
+}
+.tm_backdrop > span.row.selected {
+	background-color: #cccccc !important;
+}
+.tm_img {
+	/* max-width: 16px;*/
+	max-height: 20px;
+	display: inline;
+	float: right;
+}
