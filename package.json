@@ -1,0 +1,30 @@
+{
+  "name": "icon-autocomplete",
+  "version": "1.0.0",
+  "description": "Autocompletado de iconos para fc-premium",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fc-premium/icon-autocomplete.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fc-premium/icon-autocomplete/issues"
+  },
+  "homepage": "https://github.com/fc-premium/icon-autocomplete#readme",
+  "dependencies": {
+    "@types/jquery": "^3.3.31",
+    "css-loader": "^3.4.2",
+    "mousetrap": "^1.6.3",
+    "raw-loader": "^4.0.0",
+    "style-loader": "^1.1.3"
+  },
+  "devDependencies": {
+    "terser-webpack-plugin": "^2.1.3"
+  }
+}
