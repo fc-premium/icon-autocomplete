@@ -1,0 +1,14 @@
+{
+	"name": "icon-autocomplete",
+	"title": "Auto Icon",
+	"description": "Autocomplete icons",
+	"author": "pytness",
+	"version": "1.0.1",
+
+	"matches": [
+		"/foro/showthread.php*",
+		"/foro/newreply.php*",
+		"/foro/newthread.php*",
+		"/foro/private.php*"
+	],
+}
