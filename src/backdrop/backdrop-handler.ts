@@ -1,5 +1,8 @@
-import { ICONS_JSON_URL, SMILIES_URL } from '../constants'
+import ICON_LIST from '@assets/icons.json'
+import { module } from '../index'
 import Mousetrap from 'mousetrap'
+
+const SMILIES_URL: string = '//st.forocoches.com/foro/images/smilies/';
 
 export class BackdropHandler {
 	public cursorPosition: number = 0;
@@ -21,8 +24,8 @@ export class BackdropHandler {
 
 	public selectedIndex: number = 0;
 
-	public icons: any[] = [];
-	public filteredIcons: any[] = []
+	public icons: string[][] = ICON_LIST;
+	public filteredIcons: string[][] = []
 
 	public editor: JQuery = null;
 	public mousetrap = null;
@@ -30,11 +33,9 @@ export class BackdropHandler {
 	public backdrop: JQuery = $('<div class="tm_backdrop" style="display: none">');
 
 	constructor(editor = undefined) {
-		let self = this;
+		const self = this;
 
-		/////////////////////////
-
-		// this.maxRows = IconAutoCompletePackage.config.get('MAX_ROWS');
+		this.maxRows = module.config.get('max-rows');
 
 		// Update editor value on row click
 		this.backdrop.on('click', 'span.row', function() {
@@ -64,10 +65,9 @@ export class BackdropHandler {
 		});
 
 		this.setEditor(editor);
-		this.getIcons();
 	}
 
-	getComputedValues() {
+	public getComputedValues(): void {
 
 		if (this.backdrop.length !== 1)
 			return;
@@ -116,27 +116,25 @@ export class BackdropHandler {
 		this.display = this.isValidPattern;
 	}
 
-	updateBackdropRows() {
+	public updateBackdropRows(): void {
 
 		if (!this.isValidPattern) return;
 
-		let pattern = this.currentPattern;
+		const userPattern = this.currentPattern;
 
-		let filteredIcons = this.icons.filter(([icon, gif]) =>
-			icon.indexOf(pattern) === 0
+		this.filteredIcons = this.icons.filter(([pattern, gif]) =>
+			pattern.startsWith(userPattern)
 		).sort().slice(0, this.maxRows);
-
-		this.filteredIcons = filteredIcons;
 
 		let html = '';
 
-		if (filteredIcons.length === 0 || (filteredIcons.length === 1 && filteredIcons[0] === pattern)) {
+		if (this.filteredIcons.length === 0 || (this.filteredIcons.length === 1 && this.filteredIcons[0][0] === userPattern)) {
 			this.display = false;
 		} else {
-			filteredIcons.reverse().forEach((el, i) => {
+			this.filteredIcons.reverse().forEach((el, i) => {
 				html += `<span class="row"><span>${el[0]}</span> <img src="${SMILIES_URL}${el[1]}" class="tm_img"></span>`;
 				// append br if is not the last member
-				html += i != filteredIcons.length - 1 ? '<br>' : '';
+				html += i != this.filteredIcons.length - 1 ? '<br>' : '';
 			});
 		}
 
@@ -145,13 +143,11 @@ export class BackdropHandler {
 
 		this.backdrop.html(html);
 
-		let self = this;
-
 		this.backdrop.find('img').toArray().forEach(image =>
-			image.addEventListener('load', function(e) {
-				self.updateBackdropPosition();
-			})
-		)
+			image.addEventListener('load', (e) =>
+				this.updateBackdropPosition()
+			)
+		);
 
 		this.handleKeystrokes();
 
@@ -160,7 +156,7 @@ export class BackdropHandler {
 
 	// TODO: improve function
 
-	updateBackdropPosition() {
+	public updateBackdropPosition(): void {
 
 		if (!this.display) {
 			this.backdrop.hide();
@@ -234,7 +230,7 @@ export class BackdropHandler {
 		return result;
 	}
 
-	setEditor(editor) {
+	public setEditor(editor): void {
 
 		const self = this;
 
@@ -262,28 +258,21 @@ export class BackdropHandler {
 		this.backdrop.appendTo(this.editor.parent());
 	}
 
-	getIcons() {
-		let ajax = new XMLHttpRequest();
-		ajax.open('GET', ICONS_JSON_URL, false); // Sync
-		ajax.send();
-
-		this.icons = JSON.parse(ajax.responseText).sort();
-	}
-
-	selectRow() {
+	public selectRow(): void {
 		// Prevent overflow
-		if (this.selectedIndex < 0) this.selectedIndex = 0;
+		if (this.selectedIndex < 0)
+			this.selectedIndex = 0;
 
 		if (this.selectedIndex >= this.filteredIcons.length)
 			this.selectedIndex = this.filteredIcons.length - 1;
 
-		let selectedRow = this.backdrop.find('.row')
+		const selectedRow = this.backdrop.find('.row')
 			.toArray().reverse()[this.selectedIndex];
 
 		$(selectedRow).addClass('selected');
 	}
 
-	handleKeystrokes(ev = null, key = null) {
+	public handleKeystrokes(ev = null, key = null): void {
 		// Only trigger click event if backdrop is visible
 		if (['alt+enter', 'tab'].includes(key) && this.display) {
 			let rows = this.backdrop.find('.row')

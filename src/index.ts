@@ -1,20 +1,15 @@
 import { BackdropHandler } from './backdrop'
 import ModuleInfo from "./info.json";
 import ModuleConfig from "./config.json";
-import ModuleStyles from '../assets/main.css'
+import ModuleStyles from '@assets/main.css'
 
 declare var fcpremium: any;
-
 
 const IconAutoCompleteModule = new fcpremium.Module(ModuleInfo);
 
 IconAutoCompleteModule.onload = function() {
 
 	const backdropHandler = new BackdropHandler();
-
-	let maxRows = IconAutoCompleteModule.config.get('max-rows');
-	backdropHandler.maxRows = maxRows++;
-	IconAutoCompleteModule.config.set('max-rows', maxRows);
 
 	function operate(e) {
 		backdropHandler.getComputedValues();
@@ -41,9 +36,7 @@ IconAutoCompleteModule.onload = function() {
 	$('html').on('focus', 'textarea', operate);
 };
 
-// IconAutoCompleteModule.onload = function() {
-// 	console.log(1);
-// };
+console.log(IconAutoCompleteModule)
 
 export {
 	IconAutoCompleteModule as module,
