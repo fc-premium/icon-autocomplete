@@ -12,11 +12,16 @@
 		"esModuleInterop": true,
 		"watch": true,
 		"incremental": false,
-		"noResolve": false
+		"noResolve": false,
+
+		"baseUrl": ".",
+		"paths": {
+      			"@assets/*": ["assets/*"],
+    		}
 	},
 
 	"include": [
-		"src/**/*.*"
+		"./src/**/*.*"
 	],
 
 	"files": [

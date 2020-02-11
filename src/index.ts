@@ -1,7 +1,7 @@
 import { BackdropHandler } from './backdrop'
 import ModuleInfo from "./info.json";
 import ModuleConfig from "./config.json";
-import ModuleStyles from '../assets/main.css'
+import ModuleStyles from '@assets/main.css'
 
 declare var fcpremium: any;
 
@@ -35,6 +35,8 @@ IconAutoCompleteModule.onload = function() {
 	$('html').on('mouseup', 'textarea', operate);
 	$('html').on('focus', 'textarea', operate);
 };
+
+console.log(IconAutoCompleteModule)
 
 export {
 	IconAutoCompleteModule as module,
