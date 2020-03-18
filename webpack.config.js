@@ -34,5 +34,5 @@ module.exports = {
 		}
 	},
 
-	externals: MATCH_ALL_NON_RELATIVE_IMPORTS
+	// externals: MATCH_ALL_NON_RELATIVE_IMPORTS
 };
