@@ -1,3 +1,6 @@
+import $ from 'jquery'
+
+
 import ICON_LIST from '@assets/icons.json'
 import { module } from '../index'
 import Mousetrap from 'mousetrap'
