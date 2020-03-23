@@ -121,6 +121,8 @@ export class BackdropHandler {
 
 	public updateBackdropRows(): void {
 
+		this.maxRows = module.config.get('max-rows');
+
 		if (!this.isValidPattern) return;
 
 		const userPattern = this.currentPattern;
