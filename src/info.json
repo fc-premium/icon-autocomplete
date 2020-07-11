@@ -1,9 +1,10 @@
 {
 	"name": "icon-autocomplete",
-	"title": "Auto Icon",
 	"description": "Autocomplete icons",
 	"author": "pytness",
 	"version": "1.0.1",
+
+	"requiredModules": ["jquery-lib"],
 
 	"matches": [
 		"/foro/showthread.php*",
