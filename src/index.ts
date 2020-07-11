@@ -1,13 +1,13 @@
-import $ from 'jquery'
+import { Core } from 'fc-premium-core'
+import $ from '@fc-lib/jquery'
 
 import { BackdropHandler } from './backdrop'
 import ModuleInfo from "./info.json";
 import ModuleConfig from "./config.json";
 import ModuleStyles from '@assets/main.css'
 
-declare var fcpremium: any;
 
-const IconAutoCompleteModule = new fcpremium.Module(ModuleInfo);
+const IconAutoCompleteModule = new Core.Module(ModuleInfo);
 
 let backdropHandler: BackdropHandler;
 
@@ -20,7 +20,6 @@ function operate(e) {
 function setup(e) {
 	backdropHandler.setEditor(e.currentTarget);
 }
-
 
 IconAutoCompleteModule.onload = function() {
 	backdropHandler = new BackdropHandler();
@@ -60,8 +59,6 @@ IconAutoCompleteModule.onunload = function() {
 	backdropHandler.display = false;
 	backdropHandler.backdrop.hide();
 };
-
-console.log(IconAutoCompleteModule)
 
 export {
 	IconAutoCompleteModule as module,
