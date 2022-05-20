@@ -21,33 +21,44 @@ module.exports = {
 				extractComments: false,
 				terserOptions: {
 					compress: {
-						ecma: 2017,
+						ecma: 2020,
 						negate_iife: false,
+						arrows: true,
+						arguments: true,
+						dead_code: true,
+						keep_fargs: false,
+
 						unsafe: true,
 						unsafe_arrows: true,
-						arrows: true,
+						unsafe_comps: true,
+						unsafe_math: true,
+						unsafe_methods: false,
+						unsafe_undefined: true,
 					},
 
-					output: {
-						ecma: 2017,
-						comments: false
-					}
-				}
-			})
+					format: {
+						beautify: true,
+						ecma: 2020,
+						comments: false,
+					},
+
+					mangle: {},
+				},
+			}),
 		]
 	},
 	externals: [{
-			'fc-premium-core': 'fcpremium',
-		},
+		'fc-premium-core': 'fcpremium',
+	},
 
-		function (context, request, callback) {
-			const exp = /^@fc-lib\/(.*)$/.exec(request);
+	function (context, request, callback) {
+		const exp = /^@fc-lib\/(.*)$/.exec(request);
 
-			if (exp !== null && exp[1].length !== 0)
-				return callback(null, `fcpremium.Core.libraries.import('${exp[1]}')`);
+		if (exp !== null && exp[1].length !== 0)
+			return callback(null, `fcpremium.Core.libraries.import('${exp[1]}')`);
 
-			callback();
-		}
+		callback();
+	}
 	],
 
 	module: {
