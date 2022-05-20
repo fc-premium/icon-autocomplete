@@ -19,6 +19,7 @@
   "homepage": "https://github.com/fc-premium/icon-autocomplete#readme",
   "dependencies": {
     "@types/jquery": "^3.3.31",
+    "@types/mousetrap": "^1.6.9",
     "css-loader": "^3.4.2",
     "fc-premium-core": "file:../../fc-premium-core",
     "mousetrap": "^1.6.3",
