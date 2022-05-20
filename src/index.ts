@@ -11,17 +11,17 @@ const IconAutoCompleteModule = new Core.Module(ModuleInfo);
 
 let backdropHandler: BackdropHandler;
 
-function operate(e) {
+function operate(event) {
 	backdropHandler.getComputedValues();
 	backdropHandler.updateBackdropRows();
 	backdropHandler.updateBackdropPosition();
 }
 
-function setup(e) {
-	backdropHandler.setEditor(e.currentTarget);
+function setup(event) {
+	backdropHandler.setEditor(event.currentTarget);
 }
 
-IconAutoCompleteModule.onload = function() {
+IconAutoCompleteModule.addEventListener('load', function() {
 	backdropHandler = new BackdropHandler();
 
 	$('html').on('mousedown', 'textarea', setup);
@@ -37,9 +37,9 @@ IconAutoCompleteModule.onload = function() {
 	$('html').on('mousedown', 'textarea', operate);
 	$('html').on('mouseup', 'textarea', operate);
 	$('html').on('focus', 'textarea', operate);
-};
+});
 
-IconAutoCompleteModule.onunload = function() {
+IconAutoCompleteModule.addEventListener('unload', function() {
 	console.log('Unloading module');
 
 	$('html').off('mousedown', 'textarea', setup);
@@ -58,7 +58,7 @@ IconAutoCompleteModule.onunload = function() {
 
 	backdropHandler.display = false;
 	backdropHandler.backdrop.hide();
-};
+});
 
 export {
 	IconAutoCompleteModule as module,
