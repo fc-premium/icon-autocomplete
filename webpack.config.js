@@ -1,6 +1,5 @@
+const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
-
-const MATCH_ALL_NON_RELATIVE_IMPORTS = /^\w.*$/i;
 
 module.exports = {
 	watch: true,
@@ -9,15 +8,47 @@ module.exports = {
 	output: {
 		path: __dirname,
 		filename: './index.js',
-		libraryTarget: 'jsonp',
-		// library: '__module__'
+		libraryTarget: 'assign',
+		library: 'module.exports',
 	},
 
 	mode: 'production',
 
 	optimization: {
-		minimize: false
+		minimize: true,
+		minimizer: [
+			new TerserPlugin({
+				extractComments: false,
+				terserOptions: {
+					compress: {
+						ecma: 2017,
+						negate_iife: false,
+						unsafe: true,
+						unsafe_arrows: true,
+						arrows: true,
+					},
+
+					output: {
+						ecma: 2017,
+						comments: false
+					}
+				}
+			})
+		]
 	},
+	externals: [{
+			'fc-premium-core': 'fcpremium',
+		},
+
+		function (context, request, callback) {
+			const exp = /^@fc-lib\/(.*)$/.exec(request);
+
+			if (exp !== null && exp[1].length !== 0)
+				return callback(null, `fcpremium.Core.libraries.import('${exp[1]}')`);
+
+			callback();
+		}
+	],
 
 	module: {
 		rules: [{
@@ -32,7 +63,6 @@ module.exports = {
 		alias: {
 			'@assets': path.resolve(__dirname, 'assets/')
 		}
-	},
+	}
 
-	externals: MATCH_ALL_NON_RELATIVE_IMPORTS
 };

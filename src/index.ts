@@ -1,25 +1,28 @@
+import { Core } from 'fc-premium-core'
+import $ from '@fc-lib/jquery'
+
 import { BackdropHandler } from './backdrop'
 import ModuleInfo from "./info.json";
 import ModuleConfig from "./config.json";
 import ModuleStyles from '@assets/main.css'
 
-declare var fcpremium: any;
 
-const IconAutoCompleteModule = new fcpremium.Module(ModuleInfo);
+const IconAutoCompleteModule = new Core.Module(ModuleInfo);
 
-IconAutoCompleteModule.onload = function() {
+let backdropHandler: BackdropHandler;
 
-	const backdropHandler = new BackdropHandler();
+function operate(event) {
+	backdropHandler.getComputedValues();
+	backdropHandler.updateBackdropRows();
+	backdropHandler.updateBackdropPosition();
+}
 
-	function operate(e) {
-		backdropHandler.getComputedValues();
-		backdropHandler.updateBackdropRows();
-		backdropHandler.updateBackdropPosition();
-	}
+function setup(event) {
+	backdropHandler.setEditor(event.currentTarget);
+}
 
-	function setup(e) {
-		backdropHandler.setEditor(e.currentTarget);
-	}
+IconAutoCompleteModule.addEventListener('load', function() {
+	backdropHandler = new BackdropHandler();
 
 	$('html').on('mousedown', 'textarea', setup);
 	$('html').on('focus', 'textarea', setup);
@@ -34,9 +37,28 @@ IconAutoCompleteModule.onload = function() {
 	$('html').on('mousedown', 'textarea', operate);
 	$('html').on('mouseup', 'textarea', operate);
 	$('html').on('focus', 'textarea', operate);
-};
+});
 
-console.log(IconAutoCompleteModule)
+IconAutoCompleteModule.addEventListener('unload', function() {
+	console.log('Unloading module');
+
+	$('html').off('mousedown', 'textarea', setup);
+	$('html').off('focus', 'textarea', setup);
+
+	$('html').off('submit', 'textarea', () => {
+		backdropHandler.display = false;
+		backdropHandler.backdrop.hide();
+	});
+
+	$('html').off('keydown', 'textarea', operate);
+	$('html').off('keyup', 'textarea', operate);
+	$('html').off('mousedown', 'textarea', operate);
+	$('html').off('mouseup', 'textarea', operate);
+	$('html').off('focus', 'textarea', operate);
+
+	backdropHandler.display = false;
+	backdropHandler.backdrop.hide();
+});
 
 export {
 	IconAutoCompleteModule as module,

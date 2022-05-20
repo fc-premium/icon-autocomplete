@@ -1,6 +1,9 @@
+import $ from '@fc-lib/jquery'
+
+
 import ICON_LIST from '@assets/icons.json'
 import { module } from '../index'
-import Mousetrap from 'mousetrap'
+import Mousetrap from '@fc-lib/mousetrap'
 
 const SMILIES_URL: string = '//st.forocoches.com/foro/images/smilies/';
 
@@ -117,6 +120,8 @@ export class BackdropHandler {
 	}
 
 	public updateBackdropRows(): void {
+
+		this.maxRows = module.config.get('max-rows');
 
 		if (!this.isValidPattern) return;
 
