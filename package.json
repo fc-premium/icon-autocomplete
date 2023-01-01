@@ -20,14 +20,14 @@
   "dependencies": {
     "@types/jquery": "^3.3.31",
     "@types/mousetrap": "^1.6.9",
-    "css-loader": "^3.4.2",
+    "css-loader": "^6.7.3",
     "fc-premium-core": "file:../../fc-premium-core",
     "mousetrap": "^1.6.3",
-    "raw-loader": "^4.0.0",
-    "style-loader": "^1.1.3"
+    "raw-loader": "^4.0.2",
+    "style-loader": "^1.3.0"
   },
   "devDependencies": {
     "terser-webpack-plugin": "^2.3.5",
-    "webpack": "^4.42.1"
+    "webpack": "^5.75.0"
   }
 }
